@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConfidAI – Your AI Interview Companion</title>
+    <meta name="description"
+        content="Build interview confidence with ConfidAI - your AI-powered interview companion that helps you practice and improve your communication skills.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- ===== PARTICLES BACKGROUND ===== -->
+    <canvas id="particlesCanvas"></canvas>
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <div id="loadingScreen" class="screen active">
+        <div class="loader-container">
+            <div class="ai-orb">
+                <div class="orb-ring ring1"></div>
+                <div class="orb-ring ring2"></div>
+                <div class="orb-ring ring3"></div>
+                <div class="orb-core"></div>
+            </div>
+            <h1 class="loader-title">ConfidAI</h1>
+            <p class="loader-subtitle">Initializing your AI Interview Companion...</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== LOGIN SCREEN ===== -->
+    <div id="loginScreen" class="screen">
+        <div class="auth-container">
+            <div class="auth-left">
+                <div class="brand-section">
+                    <div class="brand-logo">
+                        <svg viewBox="0 0 60 60" class="logo-svg">
+                            <defs>
+                                <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#7c3aed" />
+                                    <stop offset="100%" style="stop-color:#06b6d4" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="30" cy="30" r="28" fill="none" stroke="url(#logoGrad)" stroke-width="2" />
+                            <path d="M20 35 Q30 15 40 35" fill="none" stroke="url(#logoGrad)" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <circle cx="24" cy="26" r="3" fill="url(#logoGrad)" />
+                            <circle cx="36" cy="26" r="3" fill="url(#logoGrad)" />
+                            <path d="M25 38 Q30 43 35 38" fill="none" stroke="url(#logoGrad)" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h1 class="brand-title">ConfidAI</h1>
+                    <p class="brand-tagline">Your AI Interview Companion</p>
+                </div>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-text">
+                            <h3>Smart Interview Practice</h3>
+                            <p>AI-powered questions tailored to your domain</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-text">
+                            <h3>Confidence Analysis</h3>
+                            <p>Real-time feedback on your communication skills</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌍</div>
+                        <div class="feature-text">
+                            <h3>Multi-Language Support</h3>
+                            <p>Practice in English, Hindi, Kannada, German & French</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-text">
+                            <h3>3D AI Interviewer</h3>
+                            <p>Realistic AI character that speaks and listens</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="auth-right">
+                <div class="auth-card glass-card">
+                    <div class="auth-header">
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to continue your journey</p>
+                    </div>
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                                </svg>
+                                <input type="email" id="loginEmail" placeholder="Enter your email" required
+                                    autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                </svg>
+                                <input type="password" id="loginPassword" placeholder="Enter your password" required
+                                    autocomplete="current-password">
+                                <button type="button" class="toggle-password"
+                                    onclick="togglePassword('loginPassword', this)">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rememberMe">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <a href="#" class="forgot-link">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full" id="loginBtn">
+                            <span>Sign In</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14m-7-7 7 7-7 7" />
+                            </svg>
+                        </button>
+                        <div class="auth-divider">
+                            <span>or continue with</span>
+                        </div>
+                        <div class="social-login">
+                            <button type="button" class="btn btn-social" id="googleLogin">
+                                <svg viewBox="0 0 24 24" width="20">
+                                    <path fill="#4285F4"
+                                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
+                                    <path fill="#34A853"
+                                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                    <path fill="#FBBC05"
+                                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                    <path fill="#EA4335"
+                                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                </svg>
+                                Google
+                            </button>
+                            <button type="button" class="btn btn-social" id="githubLogin">
+                                <svg viewBox="0 0 24 24" width="20" fill="currentColor">
+                                    <path
+                                        d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                                </svg>
+                                GitHub
+                            </button>
+                        </div>
+                        <div class="auth-divider">
+                            <span>or</span>
+                        </div>
+                        <button type="button" class="btn btn-guest btn-full" id="guestLoginBtn" onclick="guestLogin()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            <span>Continue as Guest</span>
+                        </button>
+                    </form>
+                    <p class="auth-switch">
+                        Don't have an account? <a href="#" onclick="showScreen('registerScreen'); return false;">Create
+                            Account</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== REGISTER SCREEN ===== -->
+    <div id="registerScreen" class="screen">
+        <div class="auth-container">
+            <div class="auth-left">
+                <div class="brand-section">
+                    <div class="brand-logo">
+                        <svg viewBox="0 0 60 60" class="logo-svg">
+                            <circle cx="30" cy="30" r="28" fill="none" stroke="url(#logoGrad)" stroke-width="2" />
+                            <path d="M20 35 Q30 15 40 35" fill="none" stroke="url(#logoGrad)" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <circle cx="24" cy="26" r="3" fill="url(#logoGrad)" />
+                            <circle cx="36" cy="26" r="3" fill="url(#logoGrad)" />
+                            <path d="M25 38 Q30 43 35 38" fill="none" stroke="url(#logoGrad)" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h1 class="brand-title">Join ConfidAI</h1>
+                    <p class="brand-tagline">Start your interview preparation journey</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card glass-card">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Students Trained</div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Interview Topics</div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Languages</div>
+                    </div>
+                </div>
+            </div>
+            <div class="auth-right">
+                <div class="auth-card glass-card">
+                    <div class="auth-header">
+                        <h2>Create Account</h2>
+                        <p>Begin your confidence building journey</p>
+                    </div>
+                    <form id="registerForm" class="auth-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="regFirstName">First Name</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                    </svg>
+                                    <input type="text" id="regFirstName" placeholder="First name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="regLastName">Last Name</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                    </svg>
+                                    <input type="text" id="regLastName" placeholder="Last name" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="regEmail">Email Address</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                                </svg>
+                                <input type="email" id="regEmail" placeholder="Enter your email" required
+                                    autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="regPassword">Password</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                </svg>
+                                <input type="password" id="regPassword" placeholder="Create a strong password" required
+                                    minlength="8" autocomplete="new-password">
+                                <button type="button" class="toggle-password"
+                                    onclick="togglePassword('regPassword', this)">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="password-strength" id="passwordStrength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strengthFill"></div>
+                                </div>
+                                <span class="strength-text" id="strengthText"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="regConfirmPassword">Confirm Password</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                </svg>
+                                <input type="password" id="regConfirmPassword" placeholder="Confirm your password"
+                                    required autocomplete="new-password">
+                            </div>
+                        </div>
+                        <label class="checkbox-label terms-check">
+                            <input type="checkbox" id="acceptTerms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                        <button type="submit" class="btn btn-primary btn-full" id="registerBtn">
+                            <span>Create Account</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14m-7-7 7 7-7 7" />
+                            </svg>
+                        </button>
+                    </form>
+                    <p class="auth-switch">
+                        Already have an account? <a href="#" onclick="showScreen('loginScreen'); return false;">Sign
+                            In</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== DASHBOARD SCREEN ===== -->
+    <div id="dashboardScreen" class="screen">
+        <nav class="dashboard-nav">
+            <div class="nav-brand">
+                <svg viewBox="0 0 40 40" class="nav-logo">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="url(#logoGrad)" stroke-width="1.5" />
+                    <circle cx="16" cy="17" r="2" fill="url(#logoGrad)" />
+                    <circle cx="24" cy="17" r="2" fill="url(#logoGrad)" />
+                    <path d="M16 25 Q20 29 24 25" fill="none" stroke="url(#logoGrad)" stroke-width="1.5"
+                        stroke-linecap="round" />
+                </svg>
+                <span>ConfidAI</span>
+            </div>
+            <div class="nav-user">
+                <span class="user-greeting" id="userGreeting">Hello, Student!</span>
+                <div class="user-avatar" id="userAvatar">S</div>
+                <button class="btn btn-ghost" onclick="logout()" id="logoutBtn">Logout</button>
+            </div>
+        </nav>
+
+        <main class="dashboard-main">
+            <section class="dashboard-hero">
+                <h1>Choose Your Interview Domain</h1>
+                <p>Select a domain below to start your AI-powered mock interview. Our AI interviewer will ask you
+                    real-world questions and help build your confidence.</p>
+            </section>
+
+            <!-- LANGUAGE SELECTION -->
+            <section class="language-section">
+                <h2>🌐 Select Your Preferred Language</h2>
+                <div class="language-grid">
+                    <button class="lang-btn active" data-lang="en-US" onclick="selectLanguage(this)">
+                        <span class="lang-flag">🇬🇧</span>
+                        <span class="lang-name">English</span>
+                    </button>
+                    <button class="lang-btn" data-lang="hi-IN" onclick="selectLanguage(this)">
+                        <span class="lang-flag">🇮🇳</span>
+                        <span class="lang-name">Hindi</span>
+                    </button>
+                    <button class="lang-btn" data-lang="kn-IN" onclick="selectLanguage(this)">
+                        <span class="lang-flag">🇮🇳</span>
+                        <span class="lang-name">Kannada</span>
+                    </button>
+                    <button class="lang-btn" data-lang="de-DE" onclick="selectLanguage(this)">
+                        <span class="lang-flag">🇩🇪</span>
+                        <span class="lang-name">German</span>
+                    </button>
+                    <button class="lang-btn" data-lang="fr-FR" onclick="selectLanguage(this)">
+                        <span class="lang-flag">🇫🇷</span>
+                        <span class="lang-name">French</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- DIFFICULTY SELECTION -->
+            <section class="difficulty-section">
+                <h2>📈 Select Difficulty Level</h2>
+                <div class="difficulty-grid">
+                    <button class="diff-btn active" data-diff="easy" onclick="selectDifficulty(this)">
+                        <span class="diff-icon">🌱</span>
+                        <span class="diff-name">Easy</span>
+                        <span class="diff-desc">Great for beginners</span>
+                    </button>
+                    <button class="diff-btn" data-diff="medium" onclick="selectDifficulty(this)">
+                        <span class="diff-icon">⚡</span>
+                        <span class="diff-name">Medium</span>
+                        <span class="diff-desc">Some experience needed</span>
+                    </button>
+                    <button class="diff-btn" data-diff="hard" onclick="selectDifficulty(this)">
+                        <span class="diff-icon">🔥</span>
+                        <span class="diff-name">Hard</span>
+                        <span class="diff-desc">For advanced students</span>
+                    </button>
+                    <button class="diff-btn" data-diff="expert" onclick="selectDifficulty(this)">
+                        <span class="diff-icon">💎</span>
+                        <span class="diff-name">Expert</span>
+                        <span class="diff-desc">Real interview difficulty</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- DOMAIN CARDS -->
+            <section class="domains-section">
+                <h2>🎯 Select Interview Domain</h2>
+                <div class="domains-grid" id="domainsGrid">
+                    <!-- domains will be injected by JS -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ===== INTERVIEW SCREEN ===== -->
+    <div id="interviewScreen" class="screen">
+        <div class="interview-layout">
+            <!-- LEFT: AI Character -->
+            <div class="interview-left">
+                <div class="ai-character-container">
+                    <div class="aria-image-wrap" id="ariaImageWrap">
+                        <canvas id="aiFaceCanvas" width="500" height="500"></canvas>
+                        <div class="aria-speak-ring" id="ariaSpeakRing"></div>
+                        <div class="aria-mouth-anim" id="ariaMouthAnim"></div>
+                    </div>
+                    <div class="ai-status" id="aiStatus">
+                        <div class="status-dot"></div>
+                        <span>AI is listening...</span>
+                    </div>
+                </div>
+                <div class="ai-name-badge">
+                    <span class="ai-name">Aria</span>
+                    <span class="ai-role">Your AI Interviewer</span>
+                </div>
+            </div>
+
+            <!-- RIGHT: Interview Panel -->
+            <div class="interview-right">
+                <div class="interview-header">
+                    <div class="interview-info">
+                        <h2 id="interviewDomain">DSA Interview</h2>
+                        <div class="interview-meta">
+                            <span class="meta-item" id="questionCount">Question 1/10</span>
+                            <span class="meta-item" id="interviewTimer">00:00</span>
+                            <span class="meta-item" id="difficultyBadge">Easy</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger" onclick="endInterview()" id="endInterviewBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 6 6 18M6 6l12 12" />
+                        </svg>
+                        End Interview
+                    </button>
+                </div>
+
+                <!-- Question Display -->
+                <div class="question-card glass-card" id="questionCard">
+                    <div class="question-label">Current Question</div>
+                    <p class="question-text" id="questionText">Click "Start Interview" to begin...</p>
+                </div>
+
+                <!-- Confidence Meter -->
+                <div class="metrics-row">
+                    <div class="metric-card glass-card">
+                        <div class="metric-label">Confidence Level</div>
+                        <div class="metric-bar">
+                            <div class="metric-fill confidence-fill" id="confidenceFill" style="width: 50%"></div>
+                        </div>
+                        <span class="metric-value" id="confidenceValue">50%</span>
+                    </div>
+                    <div class="metric-card glass-card">
+                        <div class="metric-label">Fear Level</div>
+                        <div class="metric-bar">
+                            <div class="metric-fill fear-fill" id="fearFill" style="width: 30%"></div>
+                        </div>
+                        <span class="metric-value" id="fearValue">30%</span>
+                    </div>
+                </div>
+
+                <!-- Chat / Transcript Area -->
+                <div class="chat-area glass-card" id="chatArea">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-msg ai-msg">
+                            <div class="msg-avatar">🤖</div>
+                            <div class="msg-content">
+                                <p>Hello! I'm Aria, your AI interviewer. I'm here to help you practice and build
+                                    confidence. Don't worry — I'm very friendly! Ready to start?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Answer Input Area -->
+                <div class="answer-area">
+                    <div class="voice-controls">
+                        <button class="btn btn-mic" id="micBtn" onclick="toggleMicrophone()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                <line x1="12" x2="12" y1="19" y2="22" />
+                            </svg>
+                            <div class="mic-pulse" id="micPulse"></div>
+                        </button>
+                        <div class="voice-wave" id="voiceWave">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="text-input-area">
+                        <textarea id="answerInput" placeholder="Type your answer here or use the microphone..."
+                            rows="2"></textarea>
+                        <button class="btn btn-send" id="sendBtn" onclick="submitAnswer()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="m22 2-7 20-4-9-9-4 20-7Z" />
+                                <path d="m22 2-11 11" />
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary btn-start-interview" id="startInterviewBtn"
+                        onclick="startInterview()">
+                        <span>🎤 Start Interview</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== RESULTS SCREEN ===== -->
+    <div id="resultsScreen" class="screen">
+        <div class="results-container">
+            <div class="results-header">
+                <h1>Interview Complete! 🎉</h1>
+                <p>Here's your performance analysis</p>
+            </div>
+            <div class="results-grid">
+                <div class="result-card glass-card">
+                    <div class="result-icon">📊</div>
+                    <div class="result-label">Overall Score</div>
+                    <div class="result-value" id="overallScore">0%</div>
+                    <div class="result-bar">
+                        <div class="result-fill" id="scoreFill"></div>
+                    </div>
+                </div>
+                <div class="result-card glass-card">
+                    <div class="result-icon">💪</div>
+                    <div class="result-label">Confidence</div>
+                    <div class="result-value" id="finalConfidence">0%</div>
+                    <div class="result-bar">
+                        <div class="result-fill confidence-fill" id="finalConfFill"></div>
+                    </div>
+                </div>
+                <div class="result-card glass-card">
+                    <div class="result-icon">🎯</div>
+                    <div class="result-label">Accuracy</div>
+                    <div class="result-value" id="finalAccuracy">0%</div>
+                    <div class="result-bar">
+                        <div class="result-fill" id="accuracyFill"></div>
+                    </div>
+                </div>
+                <div class="result-card glass-card">
+                    <div class="result-icon">💬</div>
+                    <div class="result-label">Communication</div>
+                    <div class="result-value" id="finalComm">0%</div>
+                    <div class="result-bar">
+                        <div class="result-fill" id="commFill"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="feedback-section glass-card">
+                <h2>AI Feedback & Tips</h2>
+                <div id="aiFeedback" class="feedback-content">
+                    <p>Great job completing the interview! Here are some tips to improve...</p>
+                </div>
+            </div>
+            <div class="results-actions">
+                <button class="btn btn-primary" onclick="showScreen('dashboardScreen')">
+                    <span>Try Another Domain</span>
+                </button>
+                <button class="btn btn-secondary" onclick="showScreen('dashboardScreen')">
+                    <span>Back to Dashboard</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== NOTIFICATION TOAST ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
